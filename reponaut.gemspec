@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_runtime_dependency('httparty', '~> 0.13.5')
+  gem.add_runtime_dependency('json', '~> 1.8')
 
   gem.add_development_dependency('rspec', '~> 3.3')
   gem.add_development_dependency('vcr', '~> 2.9')
