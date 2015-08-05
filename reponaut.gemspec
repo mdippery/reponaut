@@ -1,0 +1,19 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'reponaut/version'
+
+Gem::Specification.new do |gem|
+  gem.name          = 'reponaut'
+  gem.version       = Reponaut::VERSION
+  gem.licenses      = ['MIT']
+  gem.authors       = ['Michael Dippery']
+  gem.email         = ['michael@monkey-robot.com']
+  gem.homepage      = 'https://github.com/mdippery/reponaut'
+  gem.description   = 'Analysis tool for GitHub users'
+  gem.summary       = "Analyzes GitHub users' profiles"
+
+  gem.files         = `git ls-files`.split($/)
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features|fixtures)/})
+  gem.require_paths = ['lib']
+end
