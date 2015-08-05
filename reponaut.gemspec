@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features|fixtures)/})
   gem.require_paths = ['lib']
 
+  gem.add_runtime_dependency('httparty', '~> 0.13.5')
+
   gem.add_development_dependency('rspec', '~> 3.3')
   gem.add_development_dependency('vcr', '~> 2.9')
   gem.add_development_dependency('webmock', '~> 1.21')
