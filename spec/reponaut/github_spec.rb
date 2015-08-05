@@ -25,5 +25,23 @@ module Reponaut
         end
       end
     end
+
+    describe Repository do
+      let (:github) { Client.new('mdippery') }
+
+      describe '#fork?' do
+        it 'returns true if the repository is a fork' do
+          VCR.use_cassette('repos') do
+            expect(github.repos[3].fork?).to be true
+          end
+        end
+
+        it 'returns false if the repository is not a fork' do
+          VCR.use_cassette('repos') do
+            expect(github.repos[0].fork?).to be false
+          end
+        end
+      end
+    end
   end
 end

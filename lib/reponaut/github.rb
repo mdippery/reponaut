@@ -24,6 +24,10 @@ module Reponaut
         @data = data
       end
 
+      def fork?
+        forks > 0
+      end
+
       def method_missing(symbol, *args)
         if @data.include?(symbol.to_s)
           @data[symbol.to_s]
