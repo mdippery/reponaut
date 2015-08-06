@@ -43,7 +43,7 @@ module Reponaut
                  end
         longest_label = counts.map { |e| e[0].length }.max
         counts.each do |e|
-          printf "%-*s  %d\n", longest_label, e[0], e[1]
+          printf "%-*s     %d\n", longest_label, e[0], e[1]
         end
       rescue Slop::UnknownOption => e
         $stderr.puts e
