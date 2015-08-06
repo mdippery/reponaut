@@ -11,10 +11,10 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-        --version           Show the version and exit.
-        -s, --sort          Sort by repo count.
-        -f, --ignore-forks  Ignore forked repos.
-        -h, --help          Show this message and exit.
+          -s, --sort          Sort by repo count
+          -f, --ignore-forks  Ignore forked repos
+          -h, --help
+          --version
       """
 
   Scenario: List usage details with long option
@@ -24,10 +24,10 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-        --version           Show the version and exit.
-        -s, --sort          Sort by repo count.
-        -f, --ignore-forks  Ignore forked repos.
-        -h, --help          Show this message and exit.
+          -s, --sort          Sort by repo count
+          -f, --ignore-forks  Ignore forked repos
+          -h, --help
+          --version
       """
 
   Scenario: Get version
@@ -45,8 +45,8 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-        --version           Show the version and exit.
-        -s, --sort          Sort by repo count.
-        -f, --ignore-forks  Ignore forked repos.
-        -h, --help          Show this message and exit.
+          -s, --sort          Sort by repo count
+          -f, --ignore-forks  Ignore forked repos
+          -h, --help
+          --version
       """
