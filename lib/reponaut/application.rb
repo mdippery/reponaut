@@ -37,7 +37,14 @@ module Reponaut
         stats = Reponaut::StatisticsCalculator.new(repos)
         counts = stats.language_counts.map { |k| k }
         counts = if opts.sort?
-                   counts.sort { |a, b| b[1] <=> a[1] }
+                   counts.sort do |a, b|
+                     res = b[1] <=> a[1]
+                     if res == 0
+                       a[0] <=> b[0]
+                     else
+                       res
+                     end
+                   end
                  else
                    counts.sort { |a, b| a[0] <=> b[0] }
                  end
