@@ -37,3 +37,16 @@ Feature: Get help
       """
       reponaut, version
       """
+
+  Scenario: Specify an invalid option
+    When I run `reponaut -b`
+    Then it should fail with:
+      """
+      Usage: reponaut [OPTIONS] USERNAME
+
+      Options:
+        --version           Show the version and exit.
+        -s, --sort          Sort by repo count.
+        -f, --ignore-forks  Ignore forked repos.
+        -h, --help          Show this message and exit.
+      """
