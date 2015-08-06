@@ -42,11 +42,6 @@ Feature: Get help
     When I run `reponaut -b`
     Then it should fail with:
       """
-      Usage: reponaut [OPTIONS] USERNAME
-
-      Options:
-          -s, --sort          Sort by repo count
-          -f, --ignore-forks  Ignore forked repos
-          -h, --help
-          --version
+      unknown option `-b'
+      Run `reponaut --help` for help information
       """

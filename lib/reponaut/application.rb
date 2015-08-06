@@ -45,6 +45,10 @@ module Reponaut
         counts.each do |e|
           printf "%-*s  %d\n", longest_label, e[0], e[1]
         end
+      rescue Slop::UnknownOption => e
+        $stderr.puts e
+        $stderr.puts 'Run `reponaut --help` for help information'
+        exit 2
       end
     end
   end
