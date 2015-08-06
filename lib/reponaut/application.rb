@@ -23,6 +23,12 @@ module Reponaut
             exit
           end
         end
+
+        username = opts.arguments.first
+        unless username
+          puts opts
+          exit 1
+        end
       end
     end
   end
