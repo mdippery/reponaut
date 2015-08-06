@@ -32,7 +32,9 @@ module Reponaut
         end
 
         gh = Reponaut::GitHub::Client.new(username)
-        stats = Reponaut::StatisticsCalculator.new(gh.repos)
+        repos = gh.repos
+        repos = repos.find_all { |r| r.source? } if opts.ignore_forks?
+        stats = Reponaut::StatisticsCalculator.new(repos)
         counts = stats.language_counts.map { |k| k }
         counts = if opts.sort?
                    counts.sort { |a, b| b[1] <=> a[1] }

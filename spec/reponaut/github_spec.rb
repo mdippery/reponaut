@@ -42,6 +42,20 @@ module Reponaut
           end
         end
       end
+
+      describe '#source?' do
+        it 'returns true if the repository is a source' do
+          VCR.use_cassette('repos') do
+            expect(github.repos[0].source?).to be true
+          end
+        end
+
+        it 'returns false if the repository is not a source' do
+          VCR.use_cassette('repos') do
+            expect(github.repos[3].source?).to be false
+          end
+        end
+      end
     end
   end
 end
