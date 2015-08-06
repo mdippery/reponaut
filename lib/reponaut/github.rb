@@ -1,5 +1,6 @@
 require 'httparty'
 require 'json'
+require 'yaml' if ENV['REPONAUT_ENV'] == 'cucumber'
 
 module Reponaut
   module GitHub
@@ -15,8 +16,21 @@ module Reponaut
       end
 
       def repos
-        JSON.parse(self.class.get("/users/#{username}/repos").body).map { |e| Repository.new(e) }
+        JSON.parse(repo_data).map { |e| Repository.new(e) }
       end
+
+      private
+        def repo_data
+          return mock_repo_data if ENV['REPONAUT_ENV'] == 'cucumber'
+          self.class.get("/users/#{username}/repos").body
+        end
+
+        def mock_repo_data
+          path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'fixtures', 'cassettes', 'repos.yml')
+          raw_data = IO.read(path)
+          data = YAML.load(raw_data)
+          data['http_interactions'][0]['response']['body']['string']
+        end
     end
 
     class Repository
