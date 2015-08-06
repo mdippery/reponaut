@@ -1,4 +1,5 @@
 require 'slop'
+require 'reponaut/github'
 require 'reponaut/version'
 
 module Reponaut
@@ -28,6 +29,19 @@ module Reponaut
         unless username
           puts opts
           exit 1
+        end
+
+        gh = Reponaut::GitHub::Client.new(username)
+        stats = Reponaut::StatisticsCalculator.new(gh.repos)
+        counts = stats.language_counts.map { |k| k }
+        counts = if opts.sort?
+                   counts.sort { |a, b| b[1] <=> a[1] }
+                 else
+                   counts.sort { |a, b| a[0] <=> b[0] }
+                 end
+        longest_label = counts.map { |e| e[0].length }.max
+        counts.each do |e|
+          printf "%-*s  %d\n", longest_label, e[0], e[1]
         end
       end
     end
