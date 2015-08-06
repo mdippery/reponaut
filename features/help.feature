@@ -13,8 +13,8 @@ Feature: Get help
       Options:
           -s, --sort          Sort by repo count
           -f, --ignore-forks  Ignore forked repos
-          -h, --help
-          --version
+          -h, --help          
+          --version           
       """
 
   Scenario: List usage details with long option
@@ -26,8 +26,8 @@ Feature: Get help
       Options:
           -s, --sort          Sort by repo count
           -f, --ignore-forks  Ignore forked repos
-          -h, --help
-          --version
+          -h, --help          
+          --version           
       """
 
   Scenario: Get version
