@@ -4,6 +4,8 @@ require 'yaml' if ENV['REPONAUT_ENV'] == 'cucumber'
 
 module Reponaut
   module GitHub
+    class NoSuchUserError < StandardError; end
+
     class Client
       include HTTParty
 
@@ -22,13 +24,16 @@ module Reponaut
       private
         def repo_data
           return mock_repo_data if ENV['REPONAUT_ENV'] == 'cucumber'
-          self.class.get("/users/#{username}/repos").body
+          resp = self.class.get("/users/#{username}/repos")
+          raise NoSuchUserError, username if resp.code == 404
+          resp.body
         end
 
         def mock_repo_data
           path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'fixtures', 'cassettes', "#{username}.yml")
           raw_data = IO.read(path)
           data = YAML.load(raw_data)
+          raise NoSuchUserError, username if data['http_interactions'][0]['response']['status']['code'] == 404
           data['http_interactions'][0]['response']['body']['string']
         end
     end

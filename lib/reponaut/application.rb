@@ -58,6 +58,9 @@ module Reponaut
         counts.each do |e|
           printf "%-*s     %*d\n", longest_label, e[0], longest_count, e[1]
         end
+      rescue Reponaut::GitHub::NoSuchUserError => e
+        $stderr.puts "No such user: #{e}"
+        exit 4
       rescue Slop::UnknownOption => e
         $stderr.puts e
         $stderr.puts 'Run `reponaut --help` for help information'
