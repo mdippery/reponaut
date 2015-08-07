@@ -40,7 +40,8 @@ Feature: Get help
 
   Scenario: Specify an invalid option
     When I run `reponaut -b`
-    Then it should fail with:
+    Then the exit status should not be 0
+    And the stderr should contain:
       """
       unknown option `-b'
       Run `reponaut --help` for help information

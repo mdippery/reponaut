@@ -118,3 +118,21 @@ Feature: Count repositories by language
         Shell            1
         Swift           12
         """
+
+  Scenario: List repository counts for a non-existent user
+    Given the GitHub service returns 404 for the user "nosuchuser"
+    When I run `reponaut nosuchuser`
+    Then the exit status should not be 0
+    And the stderr should contain:
+      """
+      No such user: nosuchuser
+      """
+
+  Scenario: List repository counts for a user with no repositories
+    Given the GitHub service returns repository data for the user "emptyuser"
+    When I run `reponaut emptyuser`
+    Then the exit status should not be 0
+    And the stderr should contain:
+      """
+      emptyuser has no repositories
+      """
