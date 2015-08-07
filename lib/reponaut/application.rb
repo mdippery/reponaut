@@ -28,7 +28,7 @@ module Reponaut
 
         username = opts.arguments.first
         unless username
-          puts opts
+          $stderr.puts opts
           exit 1
         end
 
