@@ -50,8 +50,9 @@ module Reponaut
                    counts.sort { |a, b| a[0] <=> b[0] }
                  end
         longest_label = counts.map { |e| e[0].length }.max
+        longest_count = counts.map { |e| e[1].to_s.length }.max
         counts.each do |e|
-          printf "%-*s     %d\n", longest_label, e[0], e[1]
+          printf "%-*s     %*d\n", longest_label, e[0], longest_count, e[1]
         end
       rescue Slop::UnknownOption => e
         $stderr.puts e

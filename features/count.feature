@@ -105,3 +105,16 @@ Feature: Count repositories by language
       Perl            1
       VimL            1
       """
+
+    Scenario: List repository counts for users with over 10 repositories
+      Given the GitHub service returns repository data for the user "testuser1"
+      When I run `reponaut testuser1`
+      Then it should pass with:
+        """
+        HTML             1
+        Objective-C      8
+        Python           1
+        Ruby             1
+        Shell            1
+        Swift           12
+        """
