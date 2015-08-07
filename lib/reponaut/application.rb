@@ -1,6 +1,7 @@
 require 'slop'
 require 'reponaut/github'
 require 'reponaut/version'
+require 'reponaut/ext/hash'
 
 module Reponaut
   class Application
@@ -35,7 +36,7 @@ module Reponaut
         repos = gh.repos
         repos = repos.find_all { |r| r.source? } if opts.ignore_forks?
         stats = Reponaut::StatisticsCalculator.new(repos)
-        counts = stats.language_counts.map { |k| k }
+        counts = stats.language_counts.pairs
         counts = if opts.sort?
                    counts.sort do |a, b|
                      res = b[1] <=> a[1]
