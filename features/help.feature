@@ -46,3 +46,17 @@ Feature: Get help
       unknown option `-b'
       Run `reponaut --help` for help information
       """
+
+  Scenario: Specify no options
+    When I run `reponaut`
+    Then the exit status should not be 0
+    And the stderr should contain:
+      """
+      Usage: reponaut [OPTIONS] USERNAME
+
+      Options:
+          -s, --sort          Sort by repo count
+          -f, --ignore-forks  Ignore forked repos
+          -h, --help          
+          --version           
+      """
