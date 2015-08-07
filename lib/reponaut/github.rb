@@ -26,7 +26,7 @@ module Reponaut
         end
 
         def mock_repo_data
-          path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'fixtures', 'cassettes', 'repos.yml')
+          path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'fixtures', 'cassettes', "#{username}.yml")
           raw_data = IO.read(path)
           data = YAML.load(raw_data)
           data['http_interactions'][0]['response']['body']['string']
