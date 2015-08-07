@@ -32,13 +32,15 @@ module Reponaut
       describe '#fork?' do
         it 'returns true if the repository is a fork' do
           VCR.use_cassette('repos') do
-            expect(github.repos[3].fork?).to be true
+            repo = github.repos.find { |r| r.full_name == 'mdippery/dnsimple-python' }
+            expect(repo.fork?).to be true
           end
         end
 
         it 'returns false if the repository is not a fork' do
           VCR.use_cassette('repos') do
-            expect(github.repos[0].fork?).to be false
+            repo = github.repos.find { |r| r.full_name == 'mdippery/chameleon' }
+            expect(repo.fork?).to be false
           end
         end
       end
@@ -46,13 +48,15 @@ module Reponaut
       describe '#source?' do
         it 'returns true if the repository is a source' do
           VCR.use_cassette('repos') do
-            expect(github.repos[0].source?).to be true
+            repo = github.repos.find { |r| r.full_name == 'mdippery/chameleon' }
+            expect(repo.source?).to be true
           end
         end
 
         it 'returns false if the repository is not a source' do
           VCR.use_cassette('repos') do
-            expect(github.repos[3].source?).to be false
+            repo = github.repos.find { |r| r.full_name == 'mdippery/dnsimple-python' }
+            expect(repo.source?).to be false
           end
         end
       end

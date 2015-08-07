@@ -39,7 +39,7 @@ module Reponaut
       end
 
       def fork?
-        forks > 0
+        self.fork
       end
 
       def source?
