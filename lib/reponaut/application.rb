@@ -33,7 +33,7 @@ module Reponaut
         end
 
         gh = Reponaut::GitHub::Client.new(username)
-        repos = gh.repos
+        repos = gh.repos.reject { |r| r.language.nil? }
         repos = repos.find_all { |r| r.source? } if opts.ignore_forks?
         stats = Reponaut::StatisticsCalculator.new(repos)
         counts = stats.language_counts.pairs
