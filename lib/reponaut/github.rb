@@ -21,6 +21,10 @@ module Reponaut
         JSON.parse(repo_data).map { |e| Repository.new(e) }
       end
 
+      def to_s
+        username
+      end
+
       private
         def repo_data
           return mock_repo_data if ENV['REPONAUT_ENV'] == 'cucumber'
@@ -49,6 +53,10 @@ module Reponaut
 
       def source?
         !fork?
+      end
+
+      def to_s
+        full_name
       end
 
       def method_missing(symbol, *args)
