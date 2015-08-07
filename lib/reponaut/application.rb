@@ -35,6 +35,10 @@ module Reponaut
         gh = Reponaut::GitHub::Client.new(username)
         repos = gh.repos.reject { |r| r.language.nil? }
         repos = repos.find_all { |r| r.source? } if opts.ignore_forks?
+        if repos.count < 1
+          $stderr.puts "#{username} has no repositories"
+          exit 3
+        end
         stats = Reponaut::StatisticsCalculator.new(repos)
         counts = stats.language_counts.pairs
         counts = if opts.sort?
