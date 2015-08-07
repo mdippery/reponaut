@@ -1,6 +1,7 @@
 require 'httparty'
 require 'json'
 require 'yaml' if ENV['REPONAUT_ENV'] == 'cucumber'
+require 'reponaut/ext/bool'
 
 module Reponaut
   module GitHub
@@ -47,10 +48,6 @@ module Reponaut
         @data = data
       end
 
-      def fork?
-        self.fork
-      end
-
       def source?
         !fork?
       end
@@ -63,7 +60,16 @@ module Reponaut
         if @data.include?(symbol.to_s)
           @data[symbol.to_s]
         else
-          super
+          if symbol.to_s.end_with?('?')
+            bool_sym = symbol.to_s.slice(0, symbol.to_s.length-1)
+            if @data.include?(bool_sym) && @data[bool_sym].bool?
+              @data[bool_sym]
+            else
+              super
+            end
+          else
+            super
+          end
         end
       end
     end
