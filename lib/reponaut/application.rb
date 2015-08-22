@@ -12,7 +12,7 @@ module Reponaut
           o.separator ''
           o.separator 'Options:'
 
-          o.bool '-s', '--sort', 'Sort by repo count'
+          o.bool '-c', '--count', 'Sort by repo count'
           o.bool '-f', '--ignore-forks', 'Ignore forked repos'
 
           o.on '-h', '--help' do
@@ -41,7 +41,7 @@ module Reponaut
         end
         stats = Reponaut::StatisticsCalculator.new(repos)
         counts = stats.language_counts.pairs
-        counts = if opts.sort?
+        counts = if opts.count?
                    counts.sort do |a, b|
                      res = b[1] <=> a[1]
                      if res == 0

@@ -23,7 +23,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts sorted by language count
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -s mdippery`
+    When I run `reponaut -c mdippery`
     Then it should pass with:
       """
       Objective-C     5
@@ -40,7 +40,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts sorted by language count using long option
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut --sort mdippery`
+    When I run `reponaut --count mdippery`
     Then it should pass with:
       """
       Objective-C     5
@@ -91,7 +91,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for source repositories ordered by count
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -f -s mdippery`
+    When I run `reponaut -f -c mdippery`
     Then it should pass with:
       """
       Objective-C     5

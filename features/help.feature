@@ -11,7 +11,7 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-          -s, --sort          Sort by repo count
+          -c, --count         Sort by repo count
           -f, --ignore-forks  Ignore forked repos
           -h, --help          
           --version           
@@ -24,7 +24,7 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-          -s, --sort          Sort by repo count
+          -c, --count         Sort by repo count
           -f, --ignore-forks  Ignore forked repos
           -h, --help          
           --version           
@@ -55,7 +55,7 @@ Feature: Get help
       Usage: reponaut [OPTIONS] USERNAME
 
       Options:
-          -s, --sort          Sort by repo count
+          -c, --count         Sort by repo count
           -f, --ignore-forks  Ignore forked repos
           -h, --help          
           --version           
