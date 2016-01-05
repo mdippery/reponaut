@@ -6,8 +6,18 @@ GEMSPEC = `git ls-files | grep gemspec`.chomp
 GEM     = "reponaut-#{Reponaut::VERSION}.gem"
 
 desc "Build reponaut.gem"
-task :build do
+task :build => :perms do
   system "gem", "build", GEMSPEC
+end
+
+desc "Ensure correct permissions for reponaut.gem"
+task :perms do
+  system "chmod", "-R", "a+rX", *`git ls-files`.chomp.split("\n")
+end
+
+desc "Tag the latest version of reponaut"
+task :tag do
+  system "git", "tag", "-s", "-m", "reponaut v#{Reponaut::VERSION}", "v#{Reponaut::VERSION}"
 end
 
 desc "Install reponaut.gem"
@@ -16,8 +26,8 @@ task :install => :build do
 end
 
 desc "Push gem to RubyGems"
-task :release => :build do
-  system "git", "tag", "-s", "-m", "reponaut v#{Reponaut::VERSION}", "v#{Reponaut::VERSION}"
+task :release => [:tag, :build] do
+  fail 'Cannot release a dev version' if Reponaut::VERSION.end_with?('dev')
   system "gem", "push", GEM
 end
 
