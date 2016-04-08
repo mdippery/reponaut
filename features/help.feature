@@ -8,7 +8,7 @@ Feature: Get help
     When I run `reponaut -h`
     Then it should pass with:
       """
-      Usage: reponaut [OPTIONS] USERNAME
+      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
 
       Options:
           -c, --count         Sort by repo count
@@ -21,7 +21,7 @@ Feature: Get help
     When I run `reponaut --help`
     Then it should pass with:
       """
-      Usage: reponaut [OPTIONS] USERNAME
+      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
 
       Options:
           -c, --count         Sort by repo count
@@ -52,7 +52,7 @@ Feature: Get help
     Then the exit status should not be 0
     And the stderr should contain:
       """
-      Usage: reponaut [OPTIONS] USERNAME
+      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
 
       Options:
           -c, --count         Sort by repo count

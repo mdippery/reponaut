@@ -62,6 +62,46 @@ module Reponaut
           end
         end
       end
+
+      describe '#upstream' do
+        it 'returns nil if the repository is not a fork' do
+          VCR.use_cassette(username) do
+            repo = github.repos.find { |r| r.full_name == 'mdippery/chameleon' }
+            expect(repo.upstream).to be nil
+          end
+        end
+
+        it 'returns a string representing the source repository if the repo is a fork' do
+          VCR.use_cassette(username) do
+            repo = github.repos.find { |r| r.full_name == 'mdippery/dnsimple-python' }
+            VCR.use_cassette(repo.name) do
+              expect(repo.upstream).to eq('mikemaccana/dnsimple-python')
+            end
+          end
+        end
+      end
+
+      describe '#<=>' do
+        it 'sorts repositories lexicographically by name' do
+          VCR.use_cassette(username, :allow_playback_repeats => true) do
+            r1 = github.repos.find { |r| r.full_name == 'mdippery/chameleon' }
+            r2 = github.repos.find { |r| r.full_name == 'mdippery/dnsimple-python' }
+            expect(r1 <=> r2).to eq(-1)
+            expect(r2 <=> r1).to eq(1)
+            expect(r1 <=> r1).to eq(0)
+          end
+        end
+
+        it 'ignores case when sorting' do
+          VCR.use_cassette(username, :allow_playback_repeats => true) do
+            r1 = github.repos.find { |r| r.full_name == 'mdippery/nginx.vim' }
+            r2 = github.repos.find { |r| r.full_name == 'mdippery/Smyck-Color-Scheme' }
+            expect(r1 <=> r2).to eq(-1)
+            expect(r2 <=> r1).to eq(1)
+            expect(r1 <=> r1).to eq(0)
+          end
+        end
+      end
     end
   end
 end

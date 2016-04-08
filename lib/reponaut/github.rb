@@ -19,7 +19,7 @@ module Reponaut
       end
 
       def repos
-        JSON.parse(repo_data).map { |e| Repository.new(e) }
+        JSON.parse(repo_data).map { |e| Repository.new(self, e) }
       end
 
       def to_s
@@ -44,7 +44,8 @@ module Reponaut
     end
 
     class Repository
-      def initialize(data)
+      def initialize(service, data)
+        @service = service
         @data = data
       end
 
@@ -52,8 +53,17 @@ module Reponaut
         !fork?
       end
 
+      def upstream
+        return nil unless fork?
+        @service.class.get("/repos/#{full_name}")['parent']['full_name']
+      end
+
       def to_s
         full_name
+      end
+
+      def <=>(other)
+        name.downcase <=> other.name.downcase
       end
 
       def method_missing(symbol, *args)
