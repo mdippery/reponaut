@@ -22,19 +22,8 @@ module Reponaut
         quit 3, "#{username} has no repositories" if repos.empty?
 
         stats = Reponaut::StatisticsCalculator.new(repos)
-        counts = stats.language_counts.pairs
-        counts = if options['sort_numerically']
-                   counts.sort do |a, b|
-                     res = b[1] <=> a[1]
-                     if res == 0
-                       a[0] <=> b[0]
-                     else
-                       res
-                     end
-                   end
-                 else
-                   counts.sort { |a, b| a[0] <=> b[0] }
-                 end
+        sorter = options['sort_numerically'] ? NumericalSorter : LexicographicalSorter
+        counts = stats.language_counts.pairs.map { |p| sorter.new(p) }.sort.map { |s| [s.name, s.count] }
         longest_label = counts.map { |e| e[0].length }.max
         longest_count = counts.map { |e| e[1].to_s.length }.max
         counts.each do |e|
