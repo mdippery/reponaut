@@ -7,6 +7,7 @@ module Reponaut
           c.syntax 'list [options] <username> <language>'
           c.description "List a user's repos for a specific language"
           c.option 'ignore_forks', '-f', 'Ignore forks'
+          c.option 'show_description', '-d', 'Show repo description'
 
           c.action do |args, options|
             process(options, args)
@@ -26,6 +27,7 @@ module Reponaut
         filtered_repos.sort.each do |r|
           line = r.name
           line = "#{line} -> #{r.upstream}" if r.fork?
+          line = "#{line}: #{r.description}" if options['show_description']
           puts line
         end
       end
