@@ -8,34 +8,44 @@ Feature: Get help
     When I run `reponaut -h`
     Then it should pass with:
       """
-      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
+      Usage:
+
+        reponaut <command> [options] <args>
 
       Options:
-          -c, --count         Sort by repo count
-          -f, --ignore-forks  Ignore forked repos
-          -h, --help          
-          --version           
+              -h, --help         Show this message
+              -v, --version      Print the name and version
+              -t, --trace        Show the full backtrace when an error occurs
+
+      Subcommands:
+        count                 Shows a breakdown of a user's total number of repos
+        list, ls              List a user's repos for a specific language
       """
 
   Scenario: List usage details with long option
     When I run `reponaut --help`
     Then it should pass with:
       """
-      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
+      Usage:
+
+        reponaut <command> [options] <args>
 
       Options:
-          -c, --count         Sort by repo count
-          -f, --ignore-forks  Ignore forked repos
-          -h, --help          
-          --version           
+              -h, --help         Show this message
+              -v, --version      Print the name and version
+              -t, --trace        Show the full backtrace when an error occurs
+
+      Subcommands:
+        count                 Shows a breakdown of a user's total number of repos
+        list, ls              List a user's repos for a specific language
       """
 
   Scenario: Get version
     When I run `reponaut --version`
     Then the exit status should be 0
-    And the stdout should contain:
+    And the output should match:
       """
-      reponaut, version
+      reponaut [0-9]+\.[0-9]+\.[0-9]+(\.[a-z]+)?
       """
 
   Scenario: Specify an invalid option
@@ -43,20 +53,25 @@ Feature: Get help
     Then the exit status should not be 0
     And the stderr should contain:
       """
-      unknown option `-b'
-      Run `reponaut --help` for help information
+      Whoops, we can't understand your command.
+      invalid option: -b
+      Run your command again with the --help switch to see available options.
       """
 
   Scenario: Specify no options
     When I run `reponaut`
-    Then the exit status should not be 0
-    And the stderr should contain:
+    Then it should pass with:
       """
-      Usage: reponaut [OPTIONS] USERNAME [LANGUAGE]
+      Usage:
+
+        reponaut <command> [options] <args>
 
       Options:
-          -c, --count         Sort by repo count
-          -f, --ignore-forks  Ignore forked repos
-          -h, --help          
-          --version           
+              -h, --help         Show this message
+              -v, --version      Print the name and version
+              -t, --trace        Show the full backtrace when an error occurs
+
+      Subcommands:
+        count                 Shows a breakdown of a user's total number of repos
+        list, ls              List a user's repos for a specific language
       """

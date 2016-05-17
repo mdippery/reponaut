@@ -1,4 +1,22 @@
 #!/usr/bin/env ruby
 
+require 'mercenary'
 require 'reponaut'
-Reponaut::Application.run
+require 'reponaut/ext/mercenary'
+
+Mercenary.program(:reponaut) do |p|
+  p.version Reponaut::VERSION
+  p.description 'Explore GitHub users'
+  p.syntax 'reponaut <command> [options] <args>'
+
+  Reponaut::Application::Command.subclasses.each { |c| c.new(p) }
+
+  p.action do |args, options|
+    if args.empty?
+      puts p
+      exit 0
+    else
+      abort "Invalid command: #{args.first}"
+    end
+  end
+end

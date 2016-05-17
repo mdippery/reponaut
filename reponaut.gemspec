@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency('httparty', '~> 0.13.5')
   gem.add_runtime_dependency('json', '~> 1.8')
-  gem.add_runtime_dependency('slop', '~> 4.2')
+  gem.add_runtime_dependency('mercenary', '~> 0.3.5', '!= 0.3.6')
 
   gem.add_development_dependency('aruba', '~> 0.8')
   gem.add_development_dependency('cucumber', '~> 2.0')

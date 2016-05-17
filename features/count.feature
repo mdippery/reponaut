@@ -6,7 +6,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts sorted by language
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut mdippery`
+    When I run `reponaut count mdippery`
     Then it should pass with:
       """
       C               1
@@ -23,24 +23,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts sorted by language count
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -c mdippery`
-    Then it should pass with:
-      """
-      Objective-C     5
-      Python          4
-      Clojure         3
-      Ruby            3
-      VimL            3
-      Java            2
-      C               1
-      Erlang          1
-      JavaScript      1
-      Perl            1
-      """
-
-  Scenario: List repository counts sorted by language count using long option
-    Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut --count mdippery`
+    When I run `reponaut count -n mdippery`
     Then it should pass with:
       """
       Objective-C     5
@@ -57,7 +40,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for source repositories ordered by language
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -f mdippery`
+    When I run `reponaut count -f mdippery`
     Then it should pass with:
       """
       C               1
@@ -74,7 +57,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for source repositories ordered by language using long option
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut --ignore-forks mdippery`
+    When I run `reponaut count --ignore-forks mdippery`
     Then it should pass with:
       """
       C               1
@@ -91,7 +74,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for source repositories ordered by count
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -f -c mdippery`
+    When I run `reponaut count -f -n mdippery`
     Then it should pass with:
       """
       Objective-C     5
@@ -108,7 +91,7 @@ Feature: Count repositories by language
 
     Scenario: List repository counts for users with over 10 repositories
       Given the GitHub service returns repository data for the user "testuser1"
-      When I run `reponaut testuser1`
+      When I run `reponaut count testuser1`
       Then it should pass with:
         """
         HTML             1
@@ -121,7 +104,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for a non-existent user
     Given the GitHub service returns 404 for the user "nosuchuser"
-    When I run `reponaut nosuchuser`
+    When I run `reponaut count nosuchuser`
     Then the exit status should not be 0
     And the stderr should contain:
       """
@@ -130,7 +113,7 @@ Feature: Count repositories by language
 
   Scenario: List repository counts for a user with no repositories
     Given the GitHub service returns repository data for the user "emptyuser"
-    When I run `reponaut emptyuser`
+    When I run `reponaut count emptyuser`
     Then the exit status should not be 0
     And the stderr should contain:
       """

@@ -6,7 +6,7 @@ Feature: List repos for a given language
 
   Scenario: List repositories in a given language
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut mdippery VimL`
+    When I run `reponaut ls mdippery VimL`
     Then it should pass with:
       """
       nginx.vim -> vim-scripts/nginx.vim
@@ -16,7 +16,7 @@ Feature: List repos for a given language
 
   Scenario: List repositories in a given language, ignoring case
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut mdippery viml`
+    When I run `reponaut ls mdippery viml`
     Then it should pass with:
       """
       nginx.vim -> vim-scripts/nginx.vim
@@ -26,7 +26,7 @@ Feature: List repos for a given language
 
   Scenario: List repositories in a given language, excluding forks
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -f mdippery VimL`
+    When I run `reponaut ls -f mdippery VimL`
     Then it should pass with:
       """
       vimfiles
@@ -34,18 +34,9 @@ Feature: List repos for a given language
 
   Scenario: List repositories in a given language with no results
     Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut mdippery C++`
+    When I run `reponaut ls mdippery C++`
     Then the exit status should not be 0
     And the output should contain:
       """
       mdippery has no repositories written in C++
-      """
-
-  Scenario: List repositories in a given language with counts
-    Given the GitHub service returns repository data for the user "mdippery"
-    When I run `reponaut -c mdippery ruby`
-    Then the exit status should not be 0
-    And stderr should contain:
-      """
-      Cannot pass -c when filtering by language
       """
