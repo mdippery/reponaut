@@ -13,6 +13,15 @@ module Reponaut
           end
         end
 
+        it "raises a rate limit error if GitHub's rate limit is exceeded" do
+          WebMock.disable_net_connect!
+          WebMock.reset!
+          root = File.expand_path('../../fixtures', __FILE__)
+          stub_request(:get, 'https://api.github.com/users/mdippery/repos').
+            to_return(:status => 403, :body => IO.read(File.join(root, 'rate_limiting.json')))
+          expect { github.repos.count }.to raise_error(RateLimitExceededError)
+        end
+
         it 'returns a valid repo name for a repo' do
           VCR.use_cassette(username) do
             expect(github.repos[0].full_name).to eq('mdippery/3ddv')

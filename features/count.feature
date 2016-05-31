@@ -119,3 +119,12 @@ Feature: Count repositories by language
       """
       emptyuser has no repositories
       """
+
+  Scenario: List repository counts when GitHub has limited the requests
+    Given the GitHub service is rate limiting requests for the user "mdippery"
+    When I run `reponaut count mdippery`
+    Then the exit status should not be 0
+    And stderr should contain:
+      """
+      GitHub rate limit exceeded. Try your request again later.
+      """

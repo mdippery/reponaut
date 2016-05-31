@@ -25,6 +25,8 @@ module Reponaut
         @repos = @repos.find_all { |r| r.source? } if options['ignore_forks']
       rescue Reponaut::GitHub::NoSuchUserError
         quit 4, "No such user: #{username}"
+      rescue Reponaut::GitHub::RateLimitExceededError
+        quit 5, 'GitHub rate limit exceeded. Try your request again later.'
       end
 
       def quit(code, msg)

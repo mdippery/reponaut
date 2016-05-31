@@ -5,7 +5,11 @@ require 'reponaut/ext/bool'
 
 module Reponaut
   module GitHub
-    class NoSuchUserError < StandardError; end
+    class GitHubError < StandardError; end
+
+    class NoSuchUserError < GitHubError; end
+
+    class RateLimitExceededError < GitHubError; end
 
     class Client
       include HTTParty
@@ -31,11 +35,13 @@ module Reponaut
           return mock_repo_data if ENV['REPONAUT_ENV'] == 'cucumber'
           resp = self.class.get("/users/#{username}/repos")
           raise NoSuchUserError, username if resp.code == 404
+          raise RateLimitExceededError if resp.code == 403
           resp.body
         end
 
         def mock_repo_data
-          path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'fixtures', 'cassettes', "#{username}.yml")
+          raise RateLimitExceededError if ENV['REPONAUT_RATE_LIMIT'] == 'on'
+          path = File.expand_path("../../../spec/fixtures/cassettes/#{username}.yml", __FILE__)
           raw_data = IO.read(path)
           data = YAML.load(raw_data)
           raise NoSuchUserError, username if data['http_interactions'][0]['response']['status']['code'] == 404

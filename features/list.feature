@@ -40,3 +40,12 @@ Feature: List repos for a given language
       """
       mdippery has no repositories written in C++
       """
+
+  Scenario: List repositories for a given user when the API has been rate limited
+    Given the GitHub service is rate limiting requests for the user "mdippery"
+    When I run `reponaut ls mdippery python`
+    Then the exit status should not be 0
+    And stderr should contain:
+      """
+      GitHub rate limit exceeded. Try your request again later.
+      """
