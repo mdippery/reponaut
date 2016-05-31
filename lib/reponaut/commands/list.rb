@@ -4,8 +4,8 @@ module Reponaut
       def initialize(prog)
         prog.command(:list) do |c|
           c.alias :ls
-          c.syntax 'list [options] <username> <language>'
-          c.description "List a user's repos for a specific language"
+          c.syntax 'list [options] <username> [language]'
+          c.description "List a user's repos"
           c.option 'ignore_forks', '-f', 'Ignore forks'
           c.option 'show_description', '-d', 'Show repo description'
 
@@ -19,9 +19,9 @@ module Reponaut
         super
 
         language = args[1]
-        raise ArgumentError.new('You must specify a programming language') unless language
 
-        filtered_repos = repos.select { |r| r.language.downcase == language.downcase }
+        filtered_repos = repos
+        filtered_repos = filtered_repos.select { |r| r.language.downcase == language.downcase } if language
         quit 4, "#{username} has no repositories written in #{language}" if filtered_repos.empty?
 
         filtered_repos.sort.each do |r|
