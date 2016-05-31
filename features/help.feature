@@ -19,7 +19,7 @@ Feature: Get help
 
       Subcommands:
         count                 Shows a breakdown of a user's total number of repos
-        list, ls              List a user's repos for a specific language
+        list, ls              List a user's repos
       """
 
   Scenario: List usage details with long option
@@ -37,7 +37,7 @@ Feature: Get help
 
       Subcommands:
         count                 Shows a breakdown of a user's total number of repos
-        list, ls              List a user's repos for a specific language
+        list, ls              List a user's repos
       """
 
   Scenario: Get version
@@ -73,5 +73,5 @@ Feature: Get help
 
       Subcommands:
         count                 Shows a breakdown of a user's total number of repos
-        list, ls              List a user's repos for a specific language
+        list, ls              List a user's repos
       """
