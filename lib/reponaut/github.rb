@@ -5,12 +5,6 @@ require 'reponaut/ext/bool'
 
 module Reponaut
   module GitHub
-    class GitHubError < StandardError; end
-
-    class NoSuchUserError < GitHubError; end
-
-    class RateLimitExceededError < GitHubError; end
-
     class Client
       include HTTParty
 
@@ -89,5 +83,11 @@ module Reponaut
         end
       end
     end
+
+    class GitHubError < StandardError; end
+
+    class NoSuchUserError < GitHubError; end
+
+    class RateLimitExceededError < GitHubError; end
   end
 end
