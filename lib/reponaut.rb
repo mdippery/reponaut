@@ -7,6 +7,7 @@ end
 
 require 'reponaut/command'
 require 'reponaut/github'
+require 'reponaut/presenter'
 require 'reponaut/sorter'
 require 'reponaut/statistics'
 require 'reponaut/version'

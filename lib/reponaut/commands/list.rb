@@ -24,12 +24,16 @@ module Reponaut
         filtered_repos = filtered_repos.select { |r| r.language.downcase == language.downcase } if language
         quit 4, "#{username} has no repositories written in #{language}" if filtered_repos.empty?
 
+        formatter = formatter_class(options).new
         filtered_repos.sort.each do |r|
-          line = r.name
-          line = "#{line} -> #{r.upstream}" if r.fork?
-          line = "#{line}: #{r.description}" if options['show_description']
-          puts line
+          puts formatter.format(r)
         end
+      end
+
+      private
+
+      def formatter_class(options)
+        options['show_description'] ? LongPresenter : SimplePresenter
       end
     end
   end
