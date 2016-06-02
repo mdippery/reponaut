@@ -1,18 +1,10 @@
 module Reponaut
   module Application
     class Sorter
-      attr_reader :pair
+      attr_reader :name, :count
 
       def initialize(pair)
-        @pair = pair
-      end
-
-      def name
-        pair[0]
-      end
-
-      def count
-        pair[1]
+        @name, @count = pair
       end
     end
 
