@@ -14,8 +14,7 @@ module Reponaut
 
       attr_reader :username, :client, :repos
 
-      def initialize(prog)
-      end
+      def initialize(prog); end
 
       def process(options, args)
         raise ArgumentError.new('You must specify a username') if args.empty?

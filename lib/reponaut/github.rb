@@ -25,8 +25,8 @@ module Reponaut
       end
 
       private
-        def repo_data
-          return mock_repo_data if ENV['REPONAUT_ENV'] == 'cucumber'
+
+        def real_repo_data
           resp = self.class.get("/users/#{username}/repos")
           raise NoSuchUserError, username if resp.code == 404
           raise RateLimitExceededError if resp.code == 403
@@ -41,6 +41,8 @@ module Reponaut
           raise NoSuchUserError, username if data['http_interactions'][0]['response']['status']['code'] == 404
           data['http_interactions'][0]['response']['body']['string']
         end
+
+        define_method(:repo_data, instance_method(ENV['REPONAUT_ENV'] == 'cucumber' ? :mock_repo_data : :real_repo_data))
     end
 
     class Repository
