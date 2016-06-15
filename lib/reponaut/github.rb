@@ -42,7 +42,7 @@ module Reponaut
           data['http_interactions'][0]['response']['body']['string']
         end
 
-        define_method(:repo_data, instance_method(ENV['REPONAUT_ENV'] == 'cucumber' ? :mock_repo_data : :real_repo_data))
+        define_method(:repo_data, instance_method(ENV.cucumber? ? :mock_repo_data : :real_repo_data))
     end
 
     class Repository

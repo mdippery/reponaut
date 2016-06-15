@@ -5,6 +5,8 @@ def require_all(path)
   end
 end
 
+require 'reponaut/ext/ENV'
+
 require 'reponaut/command'
 require 'reponaut/github'
 require 'reponaut/presenter'
