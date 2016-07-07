@@ -14,7 +14,7 @@ Feature: List repos for a given language
       bucknellbug
       chameleon
       collections
-      dnsimple-python -> mikemaccana/dnsimple-python
+      dnsimple-python -> tbunnyman/dnsimple-python
       dotfiles
       glitz
       homebrew-self
@@ -82,7 +82,7 @@ Feature: List repos for a given language
       collections
           Bringing Smalltalk and Ruby collections methods to Objective-C since 2011
 
-      dnsimple-python -> mikemaccana/dnsimple-python
+      dnsimple-python -> tbunnyman/dnsimple-python
           Python client for DNSimple domain registration and DNS hosting
 
       dotfiles

@@ -57,7 +57,7 @@ module Reponaut
 
       def upstream
         return nil unless fork?
-        @service.class.get("/repos/#{full_name}")['parent']['full_name']
+        repo_data['parent']['full_name']
       end
 
       def to_s
@@ -84,6 +84,20 @@ module Reponaut
           end
         end
       end
+
+      private
+
+      def real_repo_data
+        @service.class.get("/repos/#{full_name}")
+      end
+
+      def mock_repo_data
+        path = File.expand_path("../../../spec/fixtures/repos/#{full_name}.json", __FILE__)
+        raw_data = IO.read(path)
+        JSON.parse(raw_data)
+      end
+
+      define_method(:repo_data, instance_method(ENV.cucumber? ? :mock_repo_data : :real_repo_data))
     end
 
     class GitHubError < StandardError; end
