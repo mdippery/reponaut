@@ -24,8 +24,12 @@ module Reponaut
         username
       end
 
-      def get(url)
-        self.class.get(url)
+      def method_missing(symbol, *args)
+        if self.class.respond_to?(symbol)
+          self.class.send(symbol, *args)
+        else
+          super
+        end
       end
 
       private
