@@ -24,10 +24,14 @@ module Reponaut
         username
       end
 
+      def get(url)
+        self.class.get(url)
+      end
+
       private
 
         def real_repo_data
-          resp = self.class.get("/users/#{username}/repos")
+          resp = get("/users/#{username}/repos")
           raise NoSuchUserError, username if resp.code == 404
           raise RateLimitExceededError if resp.code == 403
           resp.body
@@ -88,7 +92,7 @@ module Reponaut
       private
 
       def real_repo_data
-        @service.class.get("/repos/#{full_name}")
+        @service.get("/repos/#{full_name}")
       end
 
       def mock_repo_data
