@@ -17,6 +17,12 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features|fixtures)/})
   gem.require_paths = ['lib']
 
+  gem.metadata = {
+    'build_date'  => Time.now.strftime("%Y-%m-%d %H:%M:%S %Z"),
+    'commit'      => `git describe 2>/dev/null`.chomp,
+    'commit_hash' => `git rev-parse HEAD`.chomp,
+  }
+
   gem.required_ruby_version = '>= 2.0.0'
 
   gem.add_runtime_dependency('httparty', '~> 0.14.0')
