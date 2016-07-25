@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0.0'
 
-  gem.add_runtime_dependency('httparty', '~> 0.13.5')
+  gem.add_runtime_dependency('httparty', '~> 0.14.0')
   gem.add_runtime_dependency('json', '~> 2.0')
   gem.add_runtime_dependency('mercenary', '~> 0.3.5', '!= 0.3.6')
 
