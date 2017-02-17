@@ -17,7 +17,7 @@ module Reponaut
       end
 
       def repos
-        JSON.parse(repo_data).map { |e| Repository.new(self, e) }
+        repo_data.map { |e| Repository.new(self, e) }
       end
 
       def to_s
@@ -38,7 +38,7 @@ module Reponaut
           resp = get("/users/#{username}/repos")
           raise NoSuchUserError, username if resp.code == 404
           raise RateLimitExceededError if resp.code == 403
-          resp.body
+          JSON.parse(resp.body)
         end
 
         def mock_repo_data
@@ -47,7 +47,7 @@ module Reponaut
           raw_data = IO.read(path)
           data = YAML.load(raw_data)
           raise NoSuchUserError, username if data['http_interactions'][0]['response']['status']['code'] == 404
-          data['http_interactions'][0]['response']['body']['string']
+          JSON.parse(data['http_interactions'][0]['response']['body']['string'])
         end
 
         define_method(:repo_data, instance_method(ENV.cucumber? ? :mock_repo_data : :real_repo_data))
