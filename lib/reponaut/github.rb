@@ -35,10 +35,31 @@ module Reponaut
       private
 
         def real_repo_data
-          resp = get("/users/#{username}/repos")
+          resp = request_repo_data("/users/#{username}/repos")
+          body = JSON.parse(resp.body)
+          parse_linked_data(resp, body)
+        end
+
+        def request_repo_data(url)
+          resp = get(url)
           raise NoSuchUserError, username if resp.code == 404
           raise RateLimitExceededError if resp.code == 403
-          JSON.parse(resp.body)
+          resp
+        end
+
+        def parse_linked_data(resp, acc)
+          return acc unless resp.headers.include?('link')
+          links = resp.headers['link'].split(/,/).map { |l| l.strip }
+          next_url = links.find { |l| l =~ link_url_re }
+          return acc unless next_url
+          next_url = next_url.match(link_url_re).captures.first
+          resp = request_repo_data(next_url)
+          acc += JSON.parse(resp.body)
+          parse_linked_data(resp, acc)
+        end
+
+        def link_url_re
+          /^<(.+)>; rel="next"$/
         end
 
         def mock_repo_data
