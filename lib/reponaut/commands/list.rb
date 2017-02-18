@@ -8,6 +8,7 @@ module Reponaut
           c.description "List a user's repos"
           c.option 'ignore_forks', '-f', 'Ignore forks'
           c.option 'show_description', '-d', 'Show repo description'
+          c.option 'show_language', '-l', 'Show repo language'
 
           c.action do |args, options|
             process(options, args)
@@ -19,6 +20,8 @@ module Reponaut
         super
 
         language = args[1]
+
+        quit 6, 'Only one of -l and -d may be specified' if options['show_description'] && options['show_language']
 
         filtered_repos = repos
         filtered_repos = filtered_repos.select { |r| r.language.downcase == language.downcase } if language
@@ -37,7 +40,13 @@ module Reponaut
       private
 
       def formatter_class(options)
-        options['show_description'] ? LongPresenter : SimplePresenter
+        if options['show_description']
+          LongPresenter
+        elsif options['show_language']
+          LanguagePresenter
+        else
+          SimplePresenter
+        end
       end
     end
   end

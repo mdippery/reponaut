@@ -62,6 +62,64 @@ Feature: List repos for a given language
       zanegort
       """
 
+  Scenario: Show languages for all repositories
+    Given the GitHub service returns repository data for the user "mdippery"
+    When I run `reponaut ls -l mdippery`
+    Then it should pass with:
+      """
+      3ddv [Java]
+      blackout [Objective-C]
+      bucknellbug [Objective-C]
+      chameleon [Clojure]
+      collections [Objective-C]
+      dnsimple-python -> tbunnyman/dnsimple-python [Python]
+      dotfiles [Perl]
+      glitz [Python]
+      homebrew-self [Ruby]
+      karmanaut [Clojure]
+      libtar [C]
+      nginx.vim -> vim-scripts/nginx.vim [VimL]
+      rack-pesticide [Ruby]
+      rainyday [Objective-C]
+      reponaut [Python]
+      Smyck-Color-Scheme -> hukl/Smyck-Color-Scheme [VimL]
+      snodes [Java]
+      squash [Objective-C]
+      stackim [JavaScript]
+      staticgenerator -> mrj0/staticgenerator [Python]
+      usaidwat [Ruby]
+      vimfiles [VimL]
+      whitman [Clojure]
+      zanegort [Erlang]
+      """
+
+  Scenario: Show languages for all repositories without forks
+    Given the GitHub service returns repository data for the user "mdippery"
+    When I run `reponaut ls -lf mdippery`
+    Then it should pass with:
+      """
+      3ddv [Java]
+      blackout [Objective-C]
+      bucknellbug [Objective-C]
+      chameleon [Clojure]
+      collections [Objective-C]
+      dotfiles [Perl]
+      glitz [Python]
+      homebrew-self [Ruby]
+      karmanaut [Clojure]
+      libtar [C]
+      rack-pesticide [Ruby]
+      rainyday [Objective-C]
+      reponaut [Python]
+      snodes [Java]
+      squash [Objective-C]
+      stackim [JavaScript]
+      usaidwat [Ruby]
+      vimfiles [VimL]
+      whitman [Clojure]
+      zanegort [Erlang]
+      """
+
   Scenario: Describe all repositories
     Given the GitHub service returns repository data for the user "mdippery"
     When I run `reponaut ls -d mdippery`
@@ -259,4 +317,13 @@ Feature: List repos for a given language
     And stderr should contain:
       """
       GitHub rate limit exceeded. Try your request again later.
+      """
+
+  Scenario: List both descriptions and languages for a given user
+    Given the GitHub service returns repository data for the user "mdippery"
+    When I run `reponaut ls -ld mdippery`
+    Then the exit status should not be 0
+    And the output should contain exactly:
+      """
+      Only one of -l and -d may be specified
       """

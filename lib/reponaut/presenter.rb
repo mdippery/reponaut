@@ -10,6 +10,13 @@ module Reponaut
 
     class SimplePresenter < Presenter; end
 
+    class LanguagePresenter < Presenter
+      def format(repo)
+        line = super
+        line += " [#{repo.language}]"
+      end
+    end
+
     class LongPresenter < Presenter
       attr_reader :count
 
