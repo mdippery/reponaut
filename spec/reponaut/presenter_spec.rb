@@ -4,14 +4,14 @@ module Reponaut
   module Application
     describe 'Presenters' do
       let (:repo) { double('repo', :name => '3ddv',
-                                  :description => 'NEES 3D Data Viewer from the Center for Earthquake Engineering Simulation at RPI',
-                                  :fork? => false,
-                                  :language => 'Java') }
+                                   :description => 'NEES 3D Data Viewer from the Center for Earthquake Engineering Simulation at RPI',
+                                   :fork? => false,
+                                   :language => 'Java') }
       let (:fork) { double('repo', :name => 'mercenary',
-                                  :description => 'An easier way to build your command-line scripts in Ruby.',
-                                  :fork? => true,
-                                  :upstream => 'jekyll/mercenary',
-                                  :language => 'Ruby') }
+                                   :description => 'An easier way to build your command-line scripts in Ruby.',
+                                   :fork? => true,
+                                   :upstream => 'jekyll/mercenary',
+                                   :language => 'Ruby') }
 
       describe SimplePresenter do
         let (:formatter) { SimplePresenter.new }
