@@ -22,7 +22,11 @@ module Reponaut
 
         filtered_repos = repos
         filtered_repos = filtered_repos.select { |r| r.language.downcase == language.downcase } if language
-        quit 4, "#{username} has no repositories written in #{language}" if filtered_repos.empty?
+        if filtered_repos.empty?
+          msg = "#{username} has no repositories"
+          msg += " written in #{language}" if language
+          quit 4, msg
+        end
 
         formatter = formatter_class(options).new
         filtered_repos.sort.each do |r|

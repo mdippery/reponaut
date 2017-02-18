@@ -234,11 +234,20 @@ Feature: List repos for a given language
       vimfiles
       """
 
+  Scenario: List repositories for a given user with no results
+    Given the GitHub service returns repository data for the user "emptyuser"
+    When I run `reponaut ls emptyuser`
+    Then the exit status should not be 0
+    And the output should contain exactly:
+      """
+      emptyuser has no repositories
+      """
+
   Scenario: List repositories in a given language with no results
     Given the GitHub service returns repository data for the user "mdippery"
     When I run `reponaut ls mdippery C++`
     Then the exit status should not be 0
-    And the output should contain:
+    And the output should contain exactly:
       """
       mdippery has no repositories written in C++
       """
