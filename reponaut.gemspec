@@ -30,7 +30,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('mercenary', '~> 0.3.5', '!= 0.3.6')
 
   gem.add_development_dependency('aruba', '~> 0.8')
-  gem.add_development_dependency('cucumber', '~> 2.0')
+  gem.add_development_dependency('cucumber', '~> 3.0')
   gem.add_development_dependency('rspec', '~> 3.3')
   gem.add_development_dependency('vcr', '~> 3.0')
   gem.add_development_dependency('webmock', '~> 3.0')
