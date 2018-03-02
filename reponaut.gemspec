@@ -25,13 +25,13 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0.0'
 
-  gem.add_runtime_dependency('httparty', '~> 0.15.6')
+  gem.add_runtime_dependency('httparty', '~> 0.16.0')
   gem.add_runtime_dependency('json', '~> 2.0')
   gem.add_runtime_dependency('mercenary', '~> 0.3.5', '!= 0.3.6')
 
   gem.add_development_dependency('aruba', '~> 0.8')
   gem.add_development_dependency('cucumber', '~> 3.0')
   gem.add_development_dependency('rspec', '~> 3.3')
-  gem.add_development_dependency('vcr', '~> 3.0')
+  gem.add_development_dependency('vcr', '~> 4.0')
   gem.add_development_dependency('webmock', '~> 3.0')
 end
